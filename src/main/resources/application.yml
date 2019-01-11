@@ -1,0 +1,26 @@
+spring:
+  profiles.active: dev
+
+
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+
+myconfig.hikari:
+  driverClassName: org.postgresql.Driver
+  jdbcUrl: jdbc:postgresql://localhost:5432/SupplyChainData
+  username: postgres
+  password: Sadhguru
+  connectionTimeout: 10000
+  maximumPoolSize: 10
+  minimumIdle: 5
+
+
+---
+spring:
+  profiles: prod
+
+myconfig.mydb:
+  jdbcUrl: myprod1
+  userName: myproduser
+  password: myprodpwd

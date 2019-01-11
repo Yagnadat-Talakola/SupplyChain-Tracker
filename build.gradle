@@ -1,0 +1,59 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+        logbackVersion = '1.2.3' // https://logback.qos.ch/news.html
+        logstashLogbackVersion = '4.11'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'groovy'
+
+repositories {
+    //mavenLocal()
+    mavenCentral()
+}
+
+bootRepackage.enabled = false
+
+configurations.all {
+    exclude module: 'slf4j-simple'
+}
+
+dependencies {
+
+    compile("com.google.code.gson:gson:2.8.1")
+    compile("com.google.guava:guava:19.0")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1")
+
+    compile 'com.zaxxer:HikariCP:2.4.6'
+    compile("org.springframework:spring-jdbc")
+    compile("org.springframework.kafka:spring-kafka")
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    
+    compile("org.codehaus.groovy:groovy-all:1.7.2")
+    compile("org.hibernate:hibernate-validator-annotation-processor:4.1.0.Final")
+
+    compile("io.dropwizard.metrics:metrics-core:3.2.2")
+    compile("org.postgresql:postgresql:9.4-1200-jdbc41")
+    compile("com.internetitem:logback-elasticsearch-appender:1.6")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile "net.logstash.logback:logstash-logback-encoder:${logstashLogbackVersion}"
+
+    compile 'org.codehaus.groovy:groovy-all:2.4.1'
+    testCompile("org.spockframework:spock-core:1.1-groovy-2.4")
+    compile group: 'org.webjars', name: 'jquery', version: '2.1.3'
+    
+}

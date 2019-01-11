@@ -1,0 +1,67 @@
+create table item_table(
+item_id INT NOT NULL,
+item_state TEXT,
+item_name TEXT NOT NULL,
+item_description TEXT,
+channel_availability TEXT,
+item_dimensions TEXT,
+item_weight FLOAT,
+units_per_case_pack INT,
+case_pack_dimensions TEXT,
+case_pack_units_of_measure VARCHAR(5),
+drop_shipping_enabled BOOLEAN,
+is_backorder_eligible BOOLEAN,
+max_back_order_quantity INT,
+vendor_chargebacks_allowed BOOLEAN,
+is_item_perishable BOOLEAN,
+is_item_hazardous BOOLEAN,
+is_item_flammable BOOLEAN,
+is_RFID_enabled BOOLEAN,
+item_shelf_life INT,
+PRIMARY KEY (item_id)
+);
+
+insert into item_table (item_id, item_state, item_name, item_description, channel_availability, item_dimensions, item_weight, units_per_case_pack, case_pack_dimensions, case_pack_units_of_measure, drop_shipping_enabled, is_backorder_eligible, max_back_order_quantity, vendor_chargebacks_allowed, is_item_perishable, is_item_hazardous, is_item_flammable, is_RFID_enabled, item_shelf_life)
+values (123456789, 'pending approval', 'Xbox-1X', 'playing console', 'online', '10*20*5', 12.50, 10, '50*20*50', 'inch', true, true, 5, false, false, false, false, true, 1);
+
+insert into item_table (item_id, item_state, item_name, item_description, channel_availability, item_dimensions, item_weight, units_per_case_pack, case_pack_dimensions, case_pack_units_of_measure, drop_shipping_enabled, is_backorder_eligible, max_back_order_quantity, vendor_chargebacks_allowed, is_item_perishable, is_item_hazardous, is_item_flammable, is_RFID_enabled, item_shelf_life)
+values (987654321, 'initialized', 'PS-4', 'playing console', 'store', '10*20*5', 12.50, 10, '50*20*50', 'inch', true, true, 6, false, false, false, false, true, 2);
+
+create table node_table(
+node_id int not null,
+node_type text not null,
+node_location text,
+node_lead_time_in_hours float,
+node_max_inbound_capacity float,
+node_max_outbound_capacity float,
+can_handle_perishable_items boolean,
+can_handle_hazardous_items boolean,
+can_handle_flammable_items boolean,
+primary key (node_id)
+);
+
+insert into node_table (node_id, node_type, node_location, node_lead_time_in_hours, node_max_inbound_capacity, node_max_outbound_capacity, can_handle_perishable_items, can_handle_hazardous_items, can_handle_flammable_items)
+values (1234, 'conventional_DC', 'plymouth,mn', 5.5, 100, 100, false, true, true);
+values (4321, 'food_DC', 'rockport,nj', 3.5, 120, 80, true, false, false);
+
+create table item_shipment_table(
+shipment_id int not null primary key,
+item_id int not null references item_table(item_id),
+item_quantity int not null
+);
+
+insert into shipment_transit_table (transit_id, shipment_id, transit_type, outbound_node_id, inbound_node_id, transit_start_time, transit_end_time)
+values (1234567890, 123456, 'railroad', 1234, 4321, '2017-08-31 14:05:12', '2017-09-01 08:05:31');
+
+
+create table shipment_transit_table(
+transit_id int not null primary key,
+shipment_id int not null references item_shipment_table(shipment_id),
+transit_type varchar(10),
+outbound_node_id int references node_table(node_id),
+inbound_node_id int references node_table(node_id),
+transit_start_time timestamp,
+transit_end_time timestamp
+);
+
+
