@@ -76,6 +76,14 @@ public class SupplyChainDAO {
             return null;
     }
 
+    // get a node by node_type (food_dc, global_dc, regional_dc, forward_dc, store_1,2,3,4,5)
+    public List<NodeAttributesModel> getNodeByNodeType(String nodeType) {
+        String sql = "select * from node_table where node_type=" + nodeType;
+        List<NodeAttributesModel> nodeList = jdbcTemplate.query(sql, new NodeAttributesMapper());
+        return nodeList;
+    }
+
+
     // get all shipments from the item_shipment table
     public List<ItemShipmentModel> getAllShipments() {
         String sql = "select * from item_shipment_table";

@@ -66,8 +66,15 @@ public class SupplyChainController {
     @ResponseBody
     public String getAllNodes() {
         List<NodeAttributesModel> nodes = supplyChainService.getAllNodes();
-        return gson.toJson(nodes, new TypeToken<List<NodeAttributesModel>>() {
-        }.getType());
+        return gson.toJson(nodes, new TypeToken<List<NodeAttributesModel>>() {}.getType());
+    }
+
+    //get nodes by node_type
+    @RequestMapping(value = "/nodes/nodeType", method = RequestMethod.GET)
+    @ResponseBody
+    public String getNodeByNodeType(@RequestParam(value = "node_type") String nodeType) {
+        List<NodeAttributesModel> nodeList = supplyChainService.getNodeByNodeType(nodeType);
+        return gson.toJson(nodeList, new TypeToken<List<NodeAttributesModel>>() {}.getType());
     }
 
     // get shipment data from shipment_id.

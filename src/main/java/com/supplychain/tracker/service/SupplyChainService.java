@@ -32,6 +32,8 @@ public class SupplyChainService {
 
     public NodeAttributesModel getNodeData(int nodeId) { return supplyChainDAO.getNodeData(nodeId); }
 
+    public List<NodeAttributesModel> getNodeByNodeType(String nodeType) { return supplyChainDAO.getNodeByNodeType(nodeType); }
+
     public List<ItemShipmentModel> getAllShipments() { return supplyChainDAO.getAllShipments(); }
 
     public ItemShipmentModel getShipmentData(int shipmentId) { return supplyChainDAO.getShipmentData(shipmentId); }
