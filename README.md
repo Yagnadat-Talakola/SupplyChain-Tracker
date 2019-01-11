@@ -5,19 +5,25 @@
 * Tools used:
     * PostgreSQL for persisting data. 
     * Java for application development. 
-    * [Spring Boot](http://spring.io/projects/spring-boot) for its integrated support (Apache Tomcat webserver for instance.)
+    * [Spring Boot](http://spring.io/projects/spring-boot) for its integrated support (Apache Tomcat web-server for instance.)
     * Gradle for dependencies and build management.
     * [IntelliJ IDEA](https://www.jetbrains.com/idea/) for its excellent IDE for Java applications.
  
 * Request-Response:
     * /supply_chain_tracker/items?item_id=(int-value) 
         * get item data by its item_id.
+    * /supply_chain_tracker/items/channel?channel=(string-value)
+        * get items by channel_type.
+    * /supply_chain_tracker/items/state?state=(string-value)
+        * get items by item_state.
     * /supply_chain_tracker/items/allItems
         * get all items data.
     * /supply_chain_tracker/nodes?node_id=(int-value)
         * get node data by node_id.
     * /supply_chain_tracker/nodes/allNodes
         * get all nodes data.
+    * /supply_chain_tracker/nodes/nodeType?node_type=(string-value)
+        * get nodes by node_type.
     * /supply_chain_tracker/shipments?shipment_id=(int-value)
         * get shipment data given shipment_id.
     * /supply_chain_tracker/shipments/allShipments
