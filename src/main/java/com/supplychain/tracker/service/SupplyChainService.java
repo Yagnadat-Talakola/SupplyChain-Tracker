@@ -22,6 +22,10 @@ public class SupplyChainService {
         return supplyChainDAO.getAllItems();
     }
 
+    public List<ItemAttributesModel> getItemsByChannel(String channel) { return supplyChainDAO.getItemsByChannel(channel); }
+
+    public List<ItemAttributesModel> getItemsByState(String state) { return supplyChainDAO.getItemsByState(state); }
+
     public List<NodeAttributesModel> getAllNodes() {
         return supplyChainDAO.getAllNodes();
     }

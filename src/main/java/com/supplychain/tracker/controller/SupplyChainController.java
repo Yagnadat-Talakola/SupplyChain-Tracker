@@ -29,13 +29,28 @@ public class SupplyChainController {
         return gson.toJson(item, ItemAttributesModel.class);
     }
 
+    // get items by channel type.
+    @RequestMapping(value = "/items/channel", method = RequestMethod.GET)
+    @ResponseBody
+    public String getItemsByChannel(@RequestParam(value = "channel") String channel) {
+        List<ItemAttributesModel> itemList = supplyChainService.getItemsByChannel(channel);
+        return gson.toJson(itemList, new TypeToken<List<ItemAttributesModel>>() {}.getType());
+    }
+
+    //get items by item_state.
+    @RequestMapping(value = "/items/state", method = RequestMethod.GET)
+    @ResponseBody
+    public String getItemsByState(@RequestParam(value = "state") String state) {
+        List<ItemAttributesModel> itemList = supplyChainService.getItemsByState(state);
+        return gson.toJson(itemList, new TypeToken<List<ItemAttributesModel>>() {}.getType());
+    }
+
     // get all items
     @RequestMapping(value = "/items/allItems", method = RequestMethod.GET)
     @ResponseBody
     public String getAllItems() {
         List<ItemAttributesModel> items = supplyChainService.getAllItems();
-        return gson.toJson(items, new TypeToken<List<ItemAttributesModel>>() {
-        }.getType());
+        return gson.toJson(items, new TypeToken<List<ItemAttributesModel>>() {}.getType());
     }
 
     // get node by node_id

@@ -30,12 +30,28 @@ public class SupplyChainDAO {
         String sql = "select * from item_table where item_id=" + itemId;
 
         List<ItemAttributesModel> itemAttributesList = jdbcTemplate.query(sql, new ItemAttributesMapper());
-        System.out.println(itemAttributesList.toString());
 
         if (itemAttributesList != null && !itemAttributesList.isEmpty())
             return itemAttributesList.get(0);
         else
             return null;
+    }
+
+    // get items that can be ordered online.(channel_availability='ONLINE')
+    public List<ItemAttributesModel> getItemsByChannel(String channel) {
+
+        String sql = "select * from item_table where channel_availability=" + channel.toUpperCase();
+        List<ItemAttributesModel> itemAttributesModelList = jdbcTemplate.query(sql, new ItemAttributesMapper());
+        return itemAttributesModelList;
+    }
+
+    // get items by item_state (PENDING_APPROVAL, HOLD, INITIALIZED, ACTIVE, INACTIVE, DISCONTINUED)
+    public List<ItemAttributesModel> getItemsByState(String state) {
+
+        String sql = "select * from item_table where item_state=" + state.toUpperCase();
+        List<ItemAttributesModel> itemList = jdbcTemplate.query(sql, new ItemAttributesMapper());
+        return itemList;
+
     }
 
     // get all nodes from the node_table
