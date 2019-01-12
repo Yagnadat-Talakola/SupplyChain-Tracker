@@ -2,7 +2,7 @@ package com.supplychain.tracker.model;
 
 public class ShipmentTrackerModel {
     private int shipmentId;
-    private int itemId;
+    private transient int itemId;
     private int transitId;
     private int outboundNodeId;
     private int inboundNodeId;
@@ -16,6 +16,15 @@ public class ShipmentTrackerModel {
         this.outboundNodeId = outboundNodeId;
         this.inboundNodeId = inboundNodeId;
         this.timeUntilDestinationInHours = timeUntilDestination;
+        this.statusMessage = statusMessage;
+    }
+
+    public ShipmentTrackerModel(int shipmentId, int transitId, int outboundNodeId, int inboundNodeId, long timeUntilDestinationInHours, String statusMessage) {
+        this.shipmentId = shipmentId;
+        this.transitId = transitId;
+        this.outboundNodeId = outboundNodeId;
+        this.inboundNodeId = inboundNodeId;
+        this.timeUntilDestinationInHours = timeUntilDestinationInHours;
         this.statusMessage = statusMessage;
     }
 

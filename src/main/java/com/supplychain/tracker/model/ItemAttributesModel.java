@@ -10,6 +10,57 @@ public class ItemAttributesModel {
     @SerializedName("item_state")
     private String itemState;
 
+    @SerializedName("item_name")
+    private String itemName;
+
+    @SerializedName("item_description")
+    private String itemDescription;
+
+    @SerializedName("channel_availability")
+    private String channelAvailability;
+
+    @SerializedName("item_dimensions")
+    private String itemDimensions;
+
+    @SerializedName("item_weight")
+    private float itemWeight;
+
+    @SerializedName("units_per_case_pack")
+    private int unitsPerCasePack;
+
+    @SerializedName("case_pack_dimensions")
+    private String casePackDimensions;
+
+    @SerializedName("case_pack_units_of_measure")
+    private String casePackUnitsOfMeasure;
+
+    @SerializedName("drop_shipping_enabled")
+    private boolean dropShippingEnabled;
+
+    @SerializedName("is_backorder_eligible")
+    private boolean isBackOrderEligible;
+
+    @SerializedName("max_back_order_quantity")
+    private int maxBackOrderQuantity;
+
+    @SerializedName("vendor_chargebacks_allowed")
+    private boolean vendorChargebacksAllowed;
+
+    @SerializedName("is_item_perishable")
+    private boolean isItemPerishable;
+
+    @SerializedName("is_item_hazardous")
+    private boolean isItemHazardous;
+
+    @SerializedName("is_item_flammable")
+    private boolean isItemFlammable;
+
+    @SerializedName("is_RFID_enabled")
+    private boolean isRFIDEnabled;
+
+    @SerializedName("item_shelf_life")
+    private int itemShelfLife;
+
     public int getItemId() {
         return itemId;
     }
@@ -85,58 +136,6 @@ public class ItemAttributesModel {
     public int getItemShelfLife() {
         return itemShelfLife;
     }
-
-    @SerializedName("item_name")
-    private String itemName;
-
-    @SerializedName("item_description")
-    private String itemDescription;
-
-    @SerializedName("channel_availability")
-    private String channelAvailability;
-
-    @SerializedName("item_dimensions")
-    private String itemDimensions;
-
-    @SerializedName("item_weight")
-    private float itemWeight;
-
-    @SerializedName("units_per_case_pack")
-    private int unitsPerCasePack;
-
-    @SerializedName("case_pack_dimensions")
-    private String casePackDimensions;
-
-    @SerializedName("case_pack_units_of_measure")
-    private String casePackUnitsOfMeasure;
-
-    @SerializedName("drop_shipping_enabled")
-    private boolean dropShippingEnabled;
-
-    @SerializedName("is_backorder_eligible")
-    private boolean isBackOrderEligible;
-
-    @SerializedName("max_back_order_quantity")
-    private int maxBackOrderQuantity;
-
-    @SerializedName("vendor_chargebacks_allowed")
-    private boolean vendorChargebacksAllowed;
-
-    @SerializedName("is_item_perishable")
-    private boolean isItemPerishable;
-
-    @SerializedName("is_item_hazardous")
-    private boolean isItemHazardous;
-
-    @SerializedName("is_item_flammable")
-    private boolean isItemFlammable;
-
-    @SerializedName("is_RFID_enabled")
-    private boolean isRFIDEnabled;
-
-    @SerializedName("item_shelf_life")
-    private int itemShelfLife;
-
 
     public ItemAttributesModel(int itemId, String itemState, String itemName, String itemDescription, String channelAvailability, String itemDimensions, float itemWeight, int unitsPerCasePack, String casePackDimensions, String casePackUnitsOfMeasure, boolean dropShippingEnabled, boolean isBackOrderEligible, int maxBackOrderQuantity, boolean vendorChargebacksAllowed, boolean isItemPerishable, boolean isItemHazardous, boolean isItemFlammable, boolean isRFIDEnabled, int itemShelfLife) {
         this.itemId = itemId;

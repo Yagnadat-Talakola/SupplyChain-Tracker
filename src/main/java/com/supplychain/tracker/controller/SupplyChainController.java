@@ -133,8 +133,7 @@ public class SupplyChainController {
     @ResponseBody
     public String getTransitDataByItemId(@RequestParam(value = "item_id") int itemId) {
         List<ShipmentTransitModel> transitData = supplyChainService.getTransitDataGivenItemId(itemId);
-        return gson.toJson(transitData, new TypeToken<List<ShipmentTransitModel>>() {
-        }.getType());
+        return gson.toJson(transitData, new TypeToken<List<ShipmentTransitModel>>() {}.getType());
     }
 
     /**
@@ -148,8 +147,7 @@ public class SupplyChainController {
     @ResponseBody
     public String getShipmentInterval(@RequestParam( value = "shipment_id") int shipmentId) {
         Map<String, LocalDateTime> shipmentIntervalData = supplyChainService.getShipmentIntervalData(shipmentId);
-        return gson.toJson(shipmentIntervalData, new TypeToken<Map<String, ShipmentTransitModel>>() {
-        }.getType());
+        return gson.toJson(shipmentIntervalData, new TypeToken<Map<String, ShipmentTransitModel>>() {}.getType());
     }
 
     /**
@@ -168,6 +166,17 @@ public class SupplyChainController {
         return gson.toJson(currentShipmentData, ShipmentTrackerModel.class);
     }
 
+    /**
+     *
+     * @param timeInstance LocalDateTime instance at which the item flow is to be known.
+     * @return list of all items in-transit at a given time instance.
+     */
+    @RequestMapping(value = "/shipments/transitSnapshot", method = RequestMethod.GET)
+    @ResponseBody
+    public String getTransitSnaphot(@RequestParam(value = "time_instance") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timeInstance) {
+        List<ShipmentTrackerModel> transitData = supplyChainService.getTransitSnapshot(timeInstance);
+        return gson.toJson(transitData, new TypeToken<List<ShipmentTrackerModel>>() {}.getType());
+    }
+
 }
 
-//localhost:8080/supply_chain_tracker/shipments/itemToTrack/910504800/timeInstance/2018-03-23 14:43:18

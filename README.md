@@ -10,7 +10,7 @@
     * [IntelliJ IDEA](https://www.jetbrains.com/idea/) for its excellent IDE for Java applications.
 
 * Database Tables:
-    1. item_table:
+    1. item_table: (fields)
         * item_id
         * item_state
         * item_name
@@ -31,7 +31,7 @@
         * is_RFID_enabled
         * item_shelf_life
     
-    2. node_table:
+    2. node_table: (fields)
         * node_id
         * node_type
         * node_location
@@ -42,12 +42,12 @@
         * can_handle_hazardous_items
         * can_handle_flammable_items
         
-    3. item_shipment_table:
+    3. item_shipment_table: (fields)
         * shipment_id
         * item_id
         * item_quantity
         
-    4. shipment_transit_table:
+    4. shipment_transit_table: (fields)
         * transit_id
         * shipment_id
         * transit_type
@@ -89,6 +89,9 @@
         * get shipment start time, and shipment end time.
     * /supply_chain_tracker/shipments/itemToTrack?item_id=(int-value)&time_instance=(LocalDateTime)
         * get shipment data currently transporting given item.
+    * /supply_chain_tracker/shipments/transitSnapshot?time_instance=(LocalDateTime)
+        * get transit snapshot of all items in-transit at given time instance.
+        
 * Major components of the application:
     * `SupplyChainController` class annotated with `@RestController` maps `HTTP` requests with appropriate `JSON` responses (annotated with `@ResponseBody`)
     * `SupplyChainService` class annotated with `@Service` is the intermediary that interfaces with `SupplyChainController` to fetch data as requested by the user's `@RequestParams` data.

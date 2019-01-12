@@ -54,5 +54,6 @@ public class SupplyChainService {
 
     public ShipmentTrackerModel getCurrentShipmentData(int itemId, LocalDateTime instance) { return supplyChainDAO.getShipmentStatus(itemId, instance); }
 
+    public List<ShipmentTrackerModel> getTransitSnapshot(LocalDateTime timeInstance) { return supplyChainDAO.getSnapshotOfTransits(timeInstance); }
 
 }

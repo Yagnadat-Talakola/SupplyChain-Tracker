@@ -28,7 +28,6 @@ public class SupplyChainDAO {
     // get an item from item_table given item_id
     public ItemAttributesModel getItemData(int itemId) {
         String sql = "select * from item_table where item_id=" + itemId;
-
         List<ItemAttributesModel> itemAttributesList = jdbcTemplate.query(sql, new ItemAttributesMapper());
 
         if (itemAttributesList != null && !itemAttributesList.isEmpty())
@@ -37,9 +36,8 @@ public class SupplyChainDAO {
             return null;
     }
 
-    // get items that can be ordered online.(channel_availability='ONLINE')
+    // get items by channel_type.(channel_availability='ONLINE')
     public List<ItemAttributesModel> getItemsByChannel(String channel) {
-
         String sql = "select * from item_table where channel_availability=" + channel.toUpperCase();
         List<ItemAttributesModel> itemAttributesModelList = jdbcTemplate.query(sql, new ItemAttributesMapper());
         return itemAttributesModelList;
@@ -47,7 +45,6 @@ public class SupplyChainDAO {
 
     // get items by item_state (PENDING_APPROVAL, HOLD, INITIALIZED, ACTIVE, INACTIVE, DISCONTINUED)
     public List<ItemAttributesModel> getItemsByState(String state) {
-
         String sql = "select * from item_table where item_state=" + state.toUpperCase();
         List<ItemAttributesModel> itemList = jdbcTemplate.query(sql, new ItemAttributesMapper());
         return itemList;
@@ -57,17 +54,14 @@ public class SupplyChainDAO {
     // get all nodes from the node_table
     public List<NodeAttributesModel> getAllNodes() {
         String sql = "select * from node_table";
-
         List<NodeAttributesModel> nodeAttributesList = jdbcTemplate.query(sql, new NodeAttributesMapper());
         System.out.println(nodeAttributesList.toString());
-
         return nodeAttributesList;
     }
 
     // get a node from the node_table given node_id
     public NodeAttributesModel getNodeData(int nodeId) {
         String sql = "select * from node_table where node_id=" + nodeId;
-
         List<NodeAttributesModel> nodeAttributesList = jdbcTemplate.query(sql, new NodeAttributesMapper());
 
         if (nodeAttributesList != null && !nodeAttributesList.isEmpty())
@@ -222,6 +216,30 @@ public class SupplyChainDAO {
 
             return new ShipmentTrackerModel(shipmentId, itemId, transitId, outboundNodeId, inboundNodeId, timeUntilDestination.toHours(), status);
         }
+    }
+
+    // get a snapshot of in-transit data for a given time instance. Return a List of ShipmentTrackerModel objects.
+    public List<ShipmentTrackerModel> getSnapshotOfTransits(LocalDateTime timeInstance) {
+
+        String sql = "select * from shipment_transit_table where '" + java.sql.Timestamp.valueOf(timeInstance) + "' > transit_start_time and '" + java.sql.Timestamp.valueOf(timeInstance)
+                + "' < transit_end_time";
+        List<ShipmentTransitModel> transitList = jdbcTemplate.query(sql, new ShipmentTransitMapper());
+
+        if (transitList.isEmpty() || transitList == null) {
+            String status = "no item(s) found in-transit during this time instance";
+            List<ShipmentTrackerModel> noItemsInTransitMsg = new ArrayList<>();
+            noItemsInTransitMsg.add(new ShipmentTrackerModel(0, 0, 0, 0, 0, status));
+            return noItemsInTransitMsg;
+        }
+
+        List<ShipmentTrackerModel> transitSnapshot = transitList.stream().map(transitObject -> new ShipmentTrackerModel(transitObject.getShipmentId(),
+                                                                                                                transitObject.getTransitId(),
+                                                                                                                transitObject.getOutboundNodeId(),
+                                                                                                                transitObject.getInboundNodeId(),
+                                                                                                                ((Duration.between(timeInstance, transitObject.getTransitEndTime())).toHours()),
+                                                                                                                "item in-transit found at the given time instance"))
+                                                                                                                .collect(Collectors.toList());
+        return transitSnapshot;
     }
 
 }
