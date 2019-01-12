@@ -8,7 +8,54 @@
     * [Spring Boot](http://spring.io/projects/spring-boot) for its integrated support (Apache Tomcat web-server for instance.)
     * Gradle for dependencies and build management.
     * [IntelliJ IDEA](https://www.jetbrains.com/idea/) for its excellent IDE for Java applications.
- 
+
+* Database Tables:
+    1. item_table:
+        * item_id
+        * item_state
+        * item_name
+        * item_description
+        * channel_availability
+        * item_dimensions
+        * item_weight
+        * units_per_case_pack
+        * case_pack_dimensions
+        * case_pack_units_of_measure
+        * drop_shipping_enabled
+        * is_backorder_eligible
+        * max_backorder_quantity
+        * vendor_charge_backs_allowed
+        * is_item_perishable
+        * is_item_hazardous
+        * is_item_flammable
+        * is_RFID_enabled
+        * item_shelf_life
+    
+    2. node_table:
+        * node_id
+        * node_type
+        * node_location
+        * node_lead_time_in_hours
+        * node_max_inbound_capacity
+        * node_max_outbound_capacity
+        * can_handle_perishable_items
+        * can_handle_hazardous_items
+        * can_handle_flammable_items
+        
+    3. item_shipment_table:
+        * shipment_id
+        * item_id
+        * item_quantity
+        
+    4. shipment_transit_table:
+        * transit_id
+        * shipment_id
+        * transit_type
+        * outbound_node_id
+        * inbound_node_id
+        * transit_start_time
+        * transit_end_time
+        
 * Request-Response:
     * /supply_chain_tracker/items?item_id=(int-value) 
         * get item data by its item_id.
