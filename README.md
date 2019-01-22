@@ -91,6 +91,8 @@
         * get shipment data currently transporting given item.
     * /supply_chain_tracker/shipments/transitSnapshot?time_instance=(LocalDateTime)
         * get transit snapshot of all items in-transit at given time instance.
+    * /supply_chain_tracker/items/node?node_id=(int-value)&start_time=(LocalDateTime)&end_time=(LocalDateTime)
+        * get list of items (item_id) that were in a given node in the given duration of time.
         
 * Major components of the application:
     * `SupplyChainController` class annotated with `@RestController` maps `HTTP` requests with appropriate `JSON` responses (annotated with `@ResponseBody`)
