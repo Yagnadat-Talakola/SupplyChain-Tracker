@@ -153,23 +153,26 @@ public class SupplyChainDAO {
         return null;
     }
 
-    // given a nodeId, startTime, endTime. Return list of items the node contained in that duration.
-    // TODO: cannot use logical comparators to compare two LocalDateTime objects. Find another way.
+    // given a nodeId, startTime, endTime. Return list of items(item_id) the node contained in that duration.
     public List<Integer> getItemsInNode(int nodeId, LocalDateTime startTime, LocalDateTime endTime) {
 
-        String sql = "(select shipment_id from shipment_transit_table where outbound_node_id=" + nodeId
-                    + " and transit_start_time > " + java.sql.Timestamp.valueOf(startTime) +
-                    " ) intersect (select shipment_id from " +
-                    "shipment_transit_table where inbound_node_id = " + nodeId + " and transit_end_time < "
-                    + java.sql.Timestamp.valueOf(endTime) + ")";
+        String sql = "select shipment_id from shipment_transit_table where outbound_node_id=" + nodeId
+                    + " and transit_start_time > '" + java.sql.Timestamp.valueOf(endTime) +
+                    "' intersect select shipment_id from " +
+                    "shipment_transit_table where inbound_node_id=" + nodeId + " and transit_end_time < '"
+                    + java.sql.Timestamp.valueOf(startTime) + "' ";
 
-        List<ShipmentTransitModel> shipmentList = jdbcTemplate.query(sql, new ShipmentTransitMapper());
-        return shipmentList
-                .stream()
-                .map(shipment -> shipment.getShipmentId())
-                .map(shipmentId -> getShipmentData(shipmentId))
-                .map(shipmentData -> shipmentData.getItemId())
-                .collect(Collectors.toList());
+        List<Integer> shipmentIdList = new ArrayList<>();
+        try {
+            shipmentIdList = jdbcTemplate.queryForList(sql, Integer.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return shipmentIdList.stream()
+                                .map(shipmentId -> getShipmentData(shipmentId))
+                                .map(shipmentData -> shipmentData.getItemId())
+                                .collect(Collectors.toList());
     }
 
     // get shipmentStartTime, shipmentEndTime given shipmentId. Returns HashMap<String, LocalDateTime>

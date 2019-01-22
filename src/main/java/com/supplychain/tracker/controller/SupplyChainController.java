@@ -178,5 +178,13 @@ public class SupplyChainController {
         return gson.toJson(transitData, new TypeToken<List<ShipmentTrackerModel>>() {}.getType());
     }
 
+    @RequestMapping(value = "/items/node", method = RequestMethod.GET)
+    @ResponseBody
+    public String getItemsInNode(@RequestParam(value = "node_id") int nodeId, @RequestParam(value = "start_time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+                                                                              @RequestParam(value = "end_time") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+        List<Integer> itemData = supplyChainService.getItemsInNode(nodeId, startTime, endTime);
+        return gson.toJson(itemData, new TypeToken<List<Integer>>() {}.getType());
+    }
+
 }
 

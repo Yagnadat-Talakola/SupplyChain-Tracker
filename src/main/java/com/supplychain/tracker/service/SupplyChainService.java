@@ -48,7 +48,7 @@ public class SupplyChainService {
 
     public List<ShipmentTransitModel> getTransitDataGivenItemId(int itemId) { return supplyChainDAO.getTransitDataGivenItemId(itemId); }
 
-    //public List<Integer> getItemsInNode (int nodeId, LocalDateTime startTime, LocalDateTime endTime) { return supplyChainDAO.getItemsInNode(nodeId, startTime, endTime); }
+    public List<Integer> getItemsInNode (int nodeId, LocalDateTime startTime, LocalDateTime endTime) { return supplyChainDAO.getItemsInNode(nodeId, startTime, endTime); }
 
     public Map<String, LocalDateTime> getShipmentIntervalData(int shipmentId) { return supplyChainDAO.getShipmentInterval(shipmentId); }
 
